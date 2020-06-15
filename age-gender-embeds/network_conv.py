@@ -14,7 +14,7 @@ def inference(features, age_labels, gender_labels, training=True):
 
 	branch1 = slim.fully_connected(net, 768, scope='Net/Branch1/fc1', reuse=False)
 	branch1 = slim.dropout(branch1, 0.64, is_training=training, scope='Dropout')
-	age_logits = slim.fully_connected(branch1, 117, activation_fn=None,
+	age_logits = slim.fully_connected(branch1, 4, activation_fn=None,
 																weights_initializer=tf.truncated_normal_initializer(stddev=0.01),
 																weights_regularizer=slim.l2_regularizer(1e-5),
 																scope='Logits/Age', reuse=False)
@@ -31,7 +31,7 @@ def inference(features, age_labels, gender_labels, training=True):
 def transfer(facenet_output, features, age_labels, gender_labels, training=True, weight_decay=1e-5):
   branch1 = slim.fully_connected(facenet_output, 768, scope='Net/Branch1/fc1', reuse=False)
   branch1 = slim.dropout(branch1, 0.64, is_training=training, scope='Dropout')
-  age_logits = slim.fully_connected(branch1, 117, activation_fn=None,
+  age_logits = slim.fully_connected(branch1, 4, activation_fn=None,
                                     weights_initializer=slim.initializers.xavier_initializer(),
                                     weights_regularizer=slim.l2_regularizer(weight_decay),
                                     scope='Net/Logits/Age', reuse=False)

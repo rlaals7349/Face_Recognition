@@ -281,10 +281,8 @@ def create_mtcnn(sess, model_path):
         # os.path.realpath(__file__) = 절대 경로
         # os.path.split = ex) root/home/kkk.txt -> root/home, kkk.txt 이렇게 만들어 주는 과정
         # 즉 이 과정은 절대 경로를 불러와서 파일 앞 Path까지를 잘라서 사용하겠다는 것
-        # print( os.path.split(os.path.realpath(__file__)) ) # Modified
-        model_path,_ = os.path.split(os.path.realpath(__file__))
-        print("model_path = ", model_path) # Modified
-        print("npy_path = ", os.path.join(model_path,'det1.npy')) # Modified
+        # model_path,_ = os.path.split(os.path.realpath(__file__)) # Original 
+        model_path,_ = os.path.split(os.path.realpath(__file__)) # Modified
 
     with tf.variable_scope('pnet'):
         data = tf.placeholder(tf.float32, (None,None,None,3), 'input')

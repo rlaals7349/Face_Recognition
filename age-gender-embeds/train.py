@@ -24,13 +24,17 @@ def run_training(tfrecords_path, batch_size, epoch, model_path, log_dir, start_l
                                                                               logits=gender_logits)
         gender_cross_entropy_mean = tf.reduce_mean(gender_cross_entropy)
 
+# 35번째 인덱스 가 구멍이 없으니깐 안된다 -> [20,21,,,,39] 인덱스 순서 번호 20개 밖에 없음
+# 20,21,22,23,,,39 => [0,1,2,3,4,,,,19]
         # l2 regularization
         total_loss = tf.add_n(
             [gender_cross_entropy_mean, age_cross_entropy_mean] + tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES))
 
-       	age_ = tf.cast(tf.constant([i for i in range(0, 117)]), tf.float32)
-        age = tf.reduce_sum(tf.multiply(tf.nn.softmax(age_logits), age_), axis=1)
-        abs_loss = tf.losses.absolute_difference(age_labels, age)
+       	# age_ = tf.cast(tf.constant([i for i in range(0, 20)]), tf.float32)
+        # age = tf.reduce_sum(tf.multiply(tf.nn.softmax(age_logits), age_), axis=1)
+        prob_age = tf.argmax(tf.nn.softmax(age_logits), 1)
+        age_acc = tf.reduce_mean(tf.to_float(tf.equal(tf.to_int64(prob_age), age_labels)))
+        # abs_loss = tf.losses.absolute_difference(age_labels, age)
 
         prob_gender = tf.argmax(tf.nn.softmax(gender_logits), 1)
         gender_acc = tf.reduce_mean(tf.to_float(tf.equal(tf.to_int64(prob_gender), gender_labels)))
@@ -38,13 +42,17 @@ def run_training(tfrecords_path, batch_size, epoch, model_path, log_dir, start_l
         tf.summary.scalar("age_cross_entropy", age_cross_entropy_mean)
         tf.summary.scalar("gender_cross_entropy", gender_cross_entropy_mean)
         tf.summary.scalar("total loss", total_loss)
-        tf.summary.scalar("train_abs_age_error", abs_loss)
+        tf.summary.scalar("age_accuracy", age_acc)
         tf.summary.scalar("gender_accuracy", gender_acc)
 
         # Add to the Graph operations that train the model.
         global_step = tf.Variable(0, name="global_step", trainable=False)
         lr = tf.train.exponential_decay(start_lr, global_step=global_step,
               decay_steps=2000, decay_rate=0.1, staircase=True)
+            #   decay_steps=4500, decay_rate=0.05, staircase=True)
+        # 20000 / 0.000001 = 0.65       
+        # 2000 / 0.1 = 0.45
+        # 4500 / 0.05 = 0.5
         optimizer = tf.train.AdamOptimizer(lr)
         tf.summary.scalar("lr", lr)
 
@@ -127,3 +135,6 @@ if __name__ == '__main__':
         os.environ['CUDA_VISIBLE_DEVICES'] = ''
     run_training(tfrecords_path=args.tfrecords, batch_size=args.batch_size, epoch=args.epoch, model_path=args.model_path,
                  log_dir=args.log_path, start_lr=args.learning_rate, wd=args.weight_decay, kp=args.keep_prob)
+
+
+# python /home/team/Face_Recognition/age-gender-embeds/train.py --model_path /home/team/models/sum_wiki_4000+2000_bat32/models --log_path /home/team/models/sum_wiki_4000+2000_bat32/logs --epoch 300 --tfrecords /home/team/datasets/sum_wiki_4000+2000/tfrecords/sum_wiki_4000_mtc_train.tfrecords --batch_size 32

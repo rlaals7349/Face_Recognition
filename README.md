@@ -35,5 +35,5 @@ Supervised Learning을 위해 성별, 연령이 Labeling된 데이터셋이 필�
 사진 추가, 영상 추가
 
 ## Running training
-Currently, the best results are achieved by training the model using softmax loss. Details on how to train a model using softmax loss on the CASIA-WebFace dataset can be found on the page [Classifier training of Inception-ResNet-v1](https://github.com/davidsandberg/facenet/wiki/Classifier-training-of-inception-resnet-v1) and .
+
 
