@@ -2,8 +2,11 @@
 from multiprocessing import Process
 import os
 import glob
+
+
 dir_name='sum_wiki_4000+2000'
 name='sum_wiki_4000_mtc'
+
 data_dir=glob.glob('/home/team/datasets/{}/{}/*'.format(dir_name,name))
 def make(N):
     os.makedirs('/home/team/datasets/{}/embeddings/{}/{}'.format(dir_name,name,N), exist_ok=True)

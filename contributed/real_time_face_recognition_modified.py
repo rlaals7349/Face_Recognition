@@ -33,6 +33,7 @@ import sys
 import time
 import cv2
 import face # Original
+# import align.detect_face 
 # import contributed.face # Modified
 
 # main 함수 내에서 영상 출력 중에 Bounding Box, name, Accuracy 등을 출력하는 함수

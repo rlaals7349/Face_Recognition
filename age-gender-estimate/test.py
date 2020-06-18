@@ -26,12 +26,12 @@ def test_once(tfrecords_path, batch_size, model_checkpoint_path):
             [gender_cross_entropy_mean, age_cross_entropy_mean] + tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES),
             name="total_loss")
 
-        # age_ = tf.cast(tf.constant([i for i in range(0, 20)]), tf.float32)
+        # age_ = tf.cast(tf.constant([i for i in range(0, 117)]), tf.float32)
+        # prob_age = tf.reduce_sum(tf.multiply(tf.nn.softmax(age_logits), age_), axis=1)
         # test=tf.convert_to_tensor(tf.nn.softmax(age_logits)) # modify
         prob_age = tf.argmax(tf.nn.softmax(age_logits), 1)
         age_acc = tf.reduce_mean(tf.to_float(tf.equal(tf.to_int64(prob_age), age_labels)))
 
-        # prob_age = tf.reduce_sum(tf.multiply(tf.nn.softmax(age_logits), age_), axis=1)
         # abs_age_error = tf.losses.absolute_difference(prob_age, age_labels)
         # test=tf.nn.softmax(gender_logits)
         prob_gender = tf.argmax(tf.nn.softmax(gender_logits), 1)

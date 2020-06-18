@@ -1,4 +1,16 @@
-#임포트
+'''
+1. pre_img.py 
+이미지 개수 확인, 특정 데이터 셋에서 원하는 개수만큼 사진 가져오기(필요시 실행), 원하는 개수만큼 데이터셋 합치기
+
+2. multipro.py
+이미지에서 embedding 값을 export 하는 작업
+
+3. make_pickle.py 
+피클로 저장
+
+4. make_tfrdcords.py
+피클로 저장되어 있는 파일을 tfrecords로 저장
+'''
 import pandas as pd
 import numpy as np
 import random
@@ -6,13 +18,15 @@ import os
 import shutil
 import glob
 import pickle
-# check_num_img(data_title,tar_name)
-# get_img_by_num(tar_age_dir)
+# check_num_img(data_title,tar_name) params
+
+# get_img_by_num(tar_age_dir) params
 data_title='tarball'
 tar_name='tarball_1000'
 tar_age_dir=['20_24','25_29','30_34','35_39']
 tar_remove_age=['40_44','45_49','50_54','55_59','60_64','65_69','70_']
-####sum_img(data2_end_num,data1_title,data2_title,tar1_name,tar2_name,sav_dir,sav_tar)# 인자###
+
+#### sum_img(data2_end_num,data1_title,data2_title,tar1_name,tar2_name,sav_dir,sav_tar) params
 data2_end_num=1000
 data1_title='sum_2000+2000'
 data2_title='wiki'
@@ -29,6 +43,7 @@ def check_num_img(data_title, tar_name):
         print(len(glob.glob("/home/team/datasets/{}/{}/111/{}/*".format(data_title,tar_name,i))))
         print(len(glob.glob("/home/team/datasets/{}/{}/112/{}/*".format(data_title,tar_name,i))))
         print('###################')
+
 #특정 데이터 셋에서 원하는 개수만큼 사진 가져오기 필요시 실행
 def get_img_by_num(tar_age_dir,data_title,tar_name):
     for N in tar_age_dir:
@@ -41,24 +56,7 @@ def get_img_by_num(tar_age_dir,data_title,tar_name):
         globals()['AFAD_{}_112'.format(N)]=globals()['AFAD_{}_112'.format(N)]+globals()['AFAD_{}_1'.format(N)]
         random.shuffle(globals()['AFAD_{}_111'.format(N)])#셔플
         random.shuffle(globals()['AFAD_{}_112'.format(N)])#셔플
-    #확인
-    # for N in tar_age_dir:
-    #     print('남 sum =',len(globals()['AFAD_{}_111'.format(N)][0:2000]))
-    # print('여 sum =',len(globals()['AFAD_{}_112'.format(N)][0:2000]))
-    # print('%%%%%%%%%%%%%%%%%%%%%')
-    # print(AFAD_20_24_111[1])
 
-    # print(AFAD_20_24_111[0])
-
-    # print(AFAD_25_29_111[1])
-    # print(AFAD_25_29_111[0])
-
-    # print(AFAD_30_34_111[0])
-    # print(AFAD_30_34_111[1])
-
-    # print(AFAD_35_39_111[0])
-    # print(AFAD_35_39_111[1])
-    # print(len(AFAD_35_39_111[0:2000]))
     for i in tar_age_dir:
         tmp_111=globals()['AFAD_{}_111'.format(i)][0:2000]
         os.makedirs('/home/team/datasets/{}/{}/111/{}'.format(data_title,tar_name,i), exist_ok=True)
@@ -101,7 +99,3 @@ def sum_img(tar_age_dir,data2_end_num,data1_title,data2_title,tar1_name,tar2_nam
         for j in range(0,len(tmp_112)):
             os.system('cp {} /home/team/datasets/{}/{}/112/{}/'.format(tmp_112[j],sav_dir,sav_tar,i))
     # for i in tar_age_dir:
-# sum_img(data2_end_num,data1_title,data2_title,tar1_name,tar2_name,sav_dir,sav_tar)# 인자###
-
-
-# check_num_img(data_title,tar_name)

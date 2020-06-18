@@ -73,7 +73,6 @@ def block17(net, scale=1.0, activation_fn=tf.nn.relu, scope=None, reuse=None):
             net = activation_fn(net)
     return net
 
-
 # Inception-Resnet-C
 def block8(net, scale=1.0, activation_fn=tf.nn.relu, scope=None, reuse=None):
     """Builds the 8x8 resnet block."""

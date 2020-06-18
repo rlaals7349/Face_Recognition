@@ -72,6 +72,7 @@ class Face:
 
 class Estimator:
     def __init__(self):
+        # 성별 추정 그래프 로드, Detection, Encoder 클래스 상속
         self.graph = facenet.load_graph(estimator_model_checkpoint)
         self.detect = Detection()
         self.encoder = Encoder()
