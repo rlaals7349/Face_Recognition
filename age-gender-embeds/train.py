@@ -25,6 +25,7 @@ def run_training(tfrecords_path, batch_size, epoch, model_path, log_dir, start_l
         gender_cross_entropy_mean = tf.reduce_mean(gender_cross_entropy)
 
 # 35번째 인덱스 가 구멍이 없으니깐 안된다 -> [20,21,,,,39] 인덱스 순서 번호 20개 밖에 없음
+
 # 20,21,22,23,,,39 => [0,1,2,3,4,,,,19]
         # l2 regularization
         total_loss = tf.add_n(
@@ -32,6 +33,7 @@ def run_training(tfrecords_path, batch_size, epoch, model_path, log_dir, start_l
 
        	# age_ = tf.cast(tf.constant([i for i in range(0, 20)]), tf.float32)
         # age = tf.reduce_sum(tf.multiply(tf.nn.softmax(age_logits), age_), axis=1)
+        
         prob_age = tf.argmax(tf.nn.softmax(age_logits), 1)
         age_acc = tf.reduce_mean(tf.to_float(tf.equal(tf.to_int64(prob_age), age_labels)))
         # abs_loss = tf.losses.absolute_difference(age_labels, age)

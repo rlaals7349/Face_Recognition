@@ -14,6 +14,7 @@ def inference(features, age_labels, gender_labels, training=True):
 
 	branch1 = slim.fully_connected(net, 768, scope='Net/Branch1/fc1', reuse=False)
 	branch1 = slim.dropout(branch1, 0.64, is_training=training, scope='Dropout')
+	#나이 클레스 개수
 	age_logits = slim.fully_connected(branch1, 4, activation_fn=None,
 																weights_initializer=tf.truncated_normal_initializer(stddev=0.01),
 																weights_regularizer=slim.l2_regularizer(1e-5),
@@ -21,6 +22,7 @@ def inference(features, age_labels, gender_labels, training=True):
 
 	branch2 = slim.fully_connected(net, 768, scope='Net/Branch2/fc1', reuse=False)
 	branch2 = slim.dropout(branch2, 0.8, is_training=training, scope='Dropout')
+	#성별 클래스 개수
 	gender_logits = slim.fully_connected(branch2, 2,
 																	 weights_initializer=slim.initializers.xavier_initializer(),
 																	 weights_regularizer=slim.l2_regularizer(1e-5),

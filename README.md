@@ -22,6 +22,9 @@ Supervised Learning을 위해 성별, 연령이 Labeling된 데이터셋이 필�
 
 현재 데이터 셋은 품질자체가 좋지 않고 잘못된 labeling이 많이 있습니다. 또한 동양과 서양의 데이터 개수를 맞추지 않는다면 성별과 연령을 잘못 예측할 가능성이 있습니다. 가능하다면 Dummy Data를 걸러내는 작업을 진행하십시오.
 
+![AFAD-graph](https://user-images.githubusercontent.com/58922804/84971050-da89f700-b156-11ea-9297-15f2055142b8.png)
+![imdb-wiki_grap](https://user-images.githubusercontent.com/58922804/84971054-df4eab00-b156-11ea-84f5-108f10ae8b23.png)
+
 ## Database
 - We are using Postgre-sql, and Django that is needed web. if you want to run this code for web, you should build database, Webcam first. if just code, don't need it. 
 - Postgre-sql과 Django를 사용하여 웹을 구현하였습니다. 웹을 사용하신다면 먼저 데이터베이스와 Webcam을 설치하여야 합니다. 
