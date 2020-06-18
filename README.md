@@ -4,15 +4,27 @@
 - 매장을 방문하는 성별과 연령을 인공지능을 통해 판별하고 매출데이터와 엮어 데이터베이스에 적재합니다.
 - When Cunstomer visiting a store, We can restore Age, Gender data in the database that estimated by AI. That is effective way to get a sales improvment.
 
-
 ## Compatibility
 - Tensorflow 1.7 version, Ubuntu 16.04, python 3.5에서 테스트되었습니다. 
 - The code is tested using Tensorflow 1.7 under Ubuntu 16.04 with Python 3.5. 
 
+## Requirements
+```
+tensorflow          1.7.0
+opencv-python       4.2.0.34
+pandas              0.25.3
+numpy               1.16.2
+scipy               1.2.1
+Django              2.1.7
+djangorestframework 3.11.0
+psycopg2            2.7.5
+psutil              5.7.0
+```
+
 ## Face Recognition
 - 얼굴 인식 모델은 [Facenet](https://github.com/davidsandberg/facenet)을 참조하였고 pre-trained model을 제공받았습니다.
 
-- 한국인의 얼굴 인식률을 높이기 위해 Asian face dataset과 kface를 활용하여 가중치를 수정하는 transfer learning을 하였습니다.
+- 한국인의 얼굴 인식률을 높이기 위해 Asian face dataset과 kface를 활용하여 가중치를 수정하는 transfer learning을 수행하였습니다.
 
 - We refered to [Facenet](https://github.com/davidsandberg/facenet) and provided pre-trained model as well.
 
